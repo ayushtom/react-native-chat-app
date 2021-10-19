@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react'
+import jwtDecode from 'jwt-decode';
+import React, { useState, useContext, useEffect } from 'react'
 import { View, Text, TextInput, StyleSheet, Button } from 'react-native'
 import { AuthContext } from '../context/context'
 
@@ -33,13 +34,13 @@ export default function Login({ navigation }) {
             )
             .then((res) => {
                 passedToken = res.jwt
-                context.login(passedToken)
+                const data = jwtDecode(passedToken)
+                context.login(data.userId, data.exp)
             })
             .catch((err) => {
                 console.log(err);
             })
     }
-
 
     return (
         <View>

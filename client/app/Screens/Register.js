@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { View, Text, TextInput, StyleSheet, Button } from 'react-native'
+import { AuthContext } from '../context/context'
 
 export default function Register() {
+    const context = useContext(AuthContext)
     const [registerationDetails, setRegisterationDetails] = useState({
         password: '',
         contactNumber: '',
@@ -19,7 +21,7 @@ export default function Register() {
     }
     const handleOnPress = () => {
         var passedToken;
-        fetch(context.API_ENDPOINT + '/user/register', {
+        fetch('http://localhost:5000/user/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

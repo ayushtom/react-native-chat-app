@@ -1,6 +1,6 @@
 import React, { useReducer, createContext } from 'react';
 import * as SecureStore from 'expo-secure-store';
-import jwt_decode from "jwt-decode";
+
 
 const initialState = {
     userId: null
@@ -33,7 +33,7 @@ tokenCheck()
 
 const AuthContext = createContext({
     userId: initialState.userId,
-    login: (userData) => { },
+    login: (userId, exp) => { },
     logout: () => { },
 });
 
@@ -42,15 +42,14 @@ function authReducer(state, action) {
         case 'LOGIN':
             return {
                 ...state,
-                userId: action.payload.userId,
-                isLoading: false
+                userId: action.payload,
             };
         case 'LOGOUT':
             return {
                 ...state,
                 userId: null,
-                isLoading: false
             };
+
 
         default:
             return state;
@@ -67,7 +66,6 @@ function AuthProvider(props) {
             type: 'LOGIN',
             payload: userId
         });
-
     }
 
 
@@ -80,7 +78,7 @@ function AuthProvider(props) {
 
     return (
         <AuthContext.Provider
-            value={{ userId: state.user, login, logout }}
+            value={{ userId: state.userId, login, logout }}
             {...props}
         />
     );
