@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { View, Text, TextInput, StyleSheet, Button } from 'react-native'
 import { AuthContext } from '../context/context'
-
 export default function Register() {
     const context = useContext(AuthContext)
     const [registerationDetails, setRegisterationDetails] = useState({
@@ -11,7 +10,6 @@ export default function Register() {
         lastName: '',
         email: ''
     })
-
     const handleChange = (event, name) => {
         event.persist()
         setRegisterationDetails((prev) => ({

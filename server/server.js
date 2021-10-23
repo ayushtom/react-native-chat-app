@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 5000
 const userRouter = require('./routes/user')
+const contactRouter = require('./routes/Contacts')
 
 const app = express();
 const server = http.createServer(app);
@@ -21,9 +22,15 @@ io.on('connection', (socket) => {
     socket.on('disconnnect', () => {
         console.log('User left');
     })
+    socket.on("chat message", msg => {
+        console.log(msg);
+        io.emit("chat message", msg);
+    });
+
 })
 
 app.use("/user", userRouter)
+app.use("/contacts", contactRouter)
 
 
 server.listen(PORT, () => {

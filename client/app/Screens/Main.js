@@ -1,15 +1,16 @@
 import React, { useContext, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as SecureStore from 'expo-secure-store';
 
 //screens
 import authScreen from './authScreen';
 import ChatsList from './ChatsList';
 import Login from './Login';
 import Register from './Register';
+import EachChatScreen from './EachChatScreen';
+import ContactsList from './ContactsList';
 
-import { AuthContext, AuthProvider } from '../context/context';
+import { AuthContext } from '../context/context';
 
 
 const Stack = createStackNavigator();
@@ -39,7 +40,13 @@ export default function Main({ navigation }) {
                     </>
                 ) : (
                     // User is signed in
-                    <Stack.Screen name="Home" component={ChatsList} />
+                    <>
+                        <Stack.Screen name="Chats" component={ChatsList} />
+                        <Stack.Screen name="Each Chat" component={EachChatScreen} />
+                        <Stack.Screen name="Contacts" component={ContactsList} />
+
+                    </>
+
                 )}
             </Stack.Navigator>
         </NavigationContainer>
